@@ -23,9 +23,16 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpReserved )
         case DLL_PROCESS_ATTACH: {
 			hAppInstance = hinstDLL;
 
-            GoString goArgs;
-            goArgs.p = (char*)lpReserved;
-            goArgs.n = strlen(lpReserved);
+            GoString goArgs = {0};
+
+            if(lpReserved != NULL){
+                goArgs.p = (char*)lpReserved;
+                goArgs.n = strlen(lpReserved);
+            }else{
+                goArgs.p = "";
+                goArgs.n = 0;
+            }
+
             start(goArgs);
 			
 			break;
